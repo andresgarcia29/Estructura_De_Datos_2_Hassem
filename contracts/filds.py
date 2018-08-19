@@ -3,5 +3,6 @@
 """
 
 contracts = {
-    "teacher": ['name', 'email', 'cellphone']
+    "teacher": ['name', 'email', 'cellphone'],
+    "user": ['username', 'password']
 }
