@@ -5,7 +5,7 @@
 
 from contracts.validations import return_validation, validate_contract, validate_id
 from helpers.messages import messages
-from helpers.order import sort_like_contracts, sort_update_like_contracts
+from helpers.order import sort_like_contracts, sort_update_like_contracts, sort_register_to_object
 
 class CRUD (object):
 
@@ -41,13 +41,20 @@ class CRUD (object):
         return lines
 
     @validate_id
-    def get_one_by_id(self, id):
+    def get_one(self, id, **kwargs):
       with open(self.file_path, 'a+') as file:
         file = open(self.file_path, 'r')
         for line in file:
           if int(line.split('|')[0]) == int(id):
             file.close()
-            return line
+            if kwargs.get('dict'):
+                dct = {
+                    'type': self.type,
+                    'register': line
+                }
+                return sort_register_to_object(**dct)
+            else:
+                return line
 
     @validate_contract
     def create(self, **obj):
@@ -71,7 +78,7 @@ class CRUD (object):
     def update(self, **obj):
       with open(self.file_path, 'r+') as file:
         #Find element to update
-        register = self.get_one_by_id(obj['id'])
+        register = self.get_one(obj['id'])
         #Delete the primary object
         del obj['id']
         #Sort and update the exactly fields

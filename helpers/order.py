@@ -37,3 +37,22 @@ def sort_update_like_contracts(**kwargs):
       items.append(dictionary[x])
 
     return items
+
+def sort_register_to_object(**kwargs):
+    #Get the order of object
+    order = contracts[kwargs['type']]
+    order.insert(0, 'id')
+
+    #Delete the type of fild
+    del kwargs['type']
+
+    #Convert to a array and delete the break lines
+    register = kwargs['register'].split('|')
+    register = [x.replace('\n', '') for x in register]
+
+    #Make a dictionary with the registers
+    dictionary = {}
+    for i, x in enumerate(register):
+        dictionary[order[i]] = register[i]
+
+    return dictionary
