@@ -25,7 +25,7 @@ def user_get_all():
 
       return jsonify(status=200, data=data)
     except ValueError as error:
-      return jsonify(status=500, message=error)
+      return jsonify(status=500, message=str(error))
 
 
 @APP.route(url_link + 'one/<string:id>', methods=['GET'])
@@ -35,7 +35,7 @@ def user_get_one(id):
       data['data'] = model_class.get_one(id, dict=True)
       return jsonify(status=200, data=data)
     except ValueError as error:
-      return jsonify(status=500, message=error)
+      return jsonify(status=500, message=str(error))
 
 
 @APP.route(url_link + 'create', methods=['POST'])
@@ -51,7 +51,7 @@ def user_create():
       data['data']['message'] = 'User created correctly'
       return jsonify(status=200, data=data)
     except ValueError as error:
-      return jsonify(status=500, message=error)
+      return jsonify(status=500, message=str(error))
 
 
 @APP.route(url_link + 'update/<string:id>', methods=['POST'])
@@ -68,7 +68,7 @@ def user_update(id):
       data['data']['message'] = 'User updated correctly'
       return jsonify(status=200, data=data)
     except ValueError as error:
-      return jsonify(status=500, message=error)
+      return jsonify(status=500, message=str(error))
 
 
 @APP.route(url_link + 'delete', methods=['POST'])
@@ -83,4 +83,4 @@ def user_delete():
       data['data']['message'] = 'User deleted correctly'
       return jsonify(status=200, data={})
     except ValueError as error:
-      return jsonify(status=500, message=error)
+      return jsonify(status=500, message=str(error))

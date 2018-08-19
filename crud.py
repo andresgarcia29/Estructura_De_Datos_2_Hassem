@@ -3,7 +3,7 @@
   This class we can inherit to get this methods
 """
 
-from contracts.validations import return_validation, validate_contract, validate_id
+from contracts.validations import return_validation, validate_contract, validate_id, validate_email
 from helpers.messages import messages
 from helpers.order import sort_like_contracts, sort_update_like_contracts, sort_register_to_object
 
@@ -57,6 +57,7 @@ class CRUD (object):
                 return line
 
     @validate_contract
+    @validate_email
     def create(self, **obj):
       with open(self.file_path, 'a+') as file:
         #Get all the lines to the file to convert to ID
@@ -75,6 +76,7 @@ class CRUD (object):
 
     @validate_id
     @validate_contract
+    @validate_email
     def update(self, **obj):
       with open(self.file_path, 'r+') as file:
         #Find element to update

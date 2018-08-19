@@ -61,3 +61,24 @@ def validate_id(func):
             print("Can't find the id")
             return False
     return check_contract
+
+
+def validate_email(func):
+    #Wrapper to check the contract is perfectly
+    def check_contract(*args, **kwargs):
+        #Call to validation function and return true or false and a message
+        if 'email' not in kwargs.keys():
+            return True
+
+        import re
+
+        addressToVerify = kwargs['email']
+        regex = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
+        match = re.match(regex,
+                            addressToVerify)
+
+        if match == None:
+            raise ValueError('Email not good format')
+        else:
+            return True
+    return check_contract
