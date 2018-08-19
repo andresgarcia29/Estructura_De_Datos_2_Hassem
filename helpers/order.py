@@ -1,4 +1,4 @@
-from contracts.filds import contracts
+from contracts.fields import contracts
 
 def sort_like_contracts(**kwargs):
     order = contracts[kwargs['type']]

@@ -2,7 +2,7 @@
   Validate contract
 """
 
-from contracts.filds import contracts
+from contracts.fields import contracts
 from helpers.messages import messages
 
 remove_information_objects = ['type']
