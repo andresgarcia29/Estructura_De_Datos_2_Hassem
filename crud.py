@@ -32,7 +32,7 @@ class CRUD (object):
         self.file_path = kwargs['_file']
         del kwargs['_file']
 
-    def getAll(self):
+    def get_all(self):
       with open(self.file_path, 'a+') as file:
         file = open(self.file_path, 'r')
         lines = []

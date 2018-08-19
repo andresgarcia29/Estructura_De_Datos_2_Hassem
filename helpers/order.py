@@ -12,7 +12,8 @@ def sort_like_contracts(**kwargs):
 def sort_update_like_contracts(**kwargs):
     #Get the order of object
     order = contracts[kwargs['obj']['type']]
-    order.insert(0, 'id')
+    if order[0] != 'id':
+        order.insert(0, 'id')
 
     #Delete the type of fild
     del kwargs['obj']['type']
