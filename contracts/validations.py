@@ -32,10 +32,10 @@ def validate_contract(func):
     def check_contract(*args, **kwargs):
         #Call to validation function and return true or false and a message
         if return_validation(**kwargs):
-            print(messages['success']['contract'])
+            raise ValueError(messages['success']['contract'])
             return func(*args, **kwargs)
         else:
-            print(messages['error']['contract'])
+            raise ValueError(messages['error']['contract'])
             return False
     return check_contract
 
@@ -58,7 +58,7 @@ def validate_id(func):
             return func(*args, **kwargs)
         else:
             #No se encontro el ID
-            print("Can't find the id")
+            raise ValueError("Can't find the id")
             return False
     return check_contract
 
