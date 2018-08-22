@@ -9,12 +9,8 @@ messages = {
     }
 }
 
-def make_message_to_send(name, action, status):
-    verb = ''
-    if status == 'success':
-        status = 'correctly'
-    else:
-        status = 'with error in the process'
+
+def make_message_to_success(name, action):
     if action == 'create':
         verb = 'created'
     elif action == 'update':
@@ -24,5 +20,23 @@ def make_message_to_send(name, action, status):
     else:
         verb = 'Has no verb'
     return {
-        'message': str(name).title() + verb
+        'data': {
+            'message': str(name).title() + ' ' + verb
+        }
+    }
+
+
+def make_message_to_error(name, action, message):
+    if action == 'create':
+        verb = 'created'
+    elif action == 'update':
+        verb = 'updated'
+    elif action == 'delete':
+        verb = 'deleted'
+    else:
+        verb = 'Has no verb'
+    return {
+        'data': {
+            'message': str(name).title() + ' ' + verb + ' Error. With code: ' + str(message)
+        }
     }
