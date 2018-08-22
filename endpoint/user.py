@@ -8,7 +8,7 @@ from classes.user import User
 model_class = User(_file=models['user'])
 url_link = '/user/'
 
-@APP.route(url_link + 'all', methods=['GET'])
+@APP.route(url_link + 'get', methods=['GET'])
 def user_get_all():
     try:
       datas = model_class.get_all()
@@ -28,7 +28,7 @@ def user_get_all():
       return jsonify(status=500, message=str(error))
 
 
-@APP.route(url_link + 'one/<string:id>', methods=['GET'])
+@APP.route(url_link + 'get/<string:id>', methods=['GET'])
 def user_get_one(id):
     try:
       data = {}
