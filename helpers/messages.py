@@ -21,7 +21,7 @@ def make_message_to_success(name, action):
         verb = 'Has no verb'
     return {
         'data': {
-            'message': str(name).title() + ' ' + verb
+            'message': str(name).title() + ' ' + verb + ' correctly'
         }
     }
 

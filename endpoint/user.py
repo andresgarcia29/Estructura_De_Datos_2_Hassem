@@ -48,7 +48,7 @@ def create():
 
       model_class.create(**json)
 
-      return jsonify(status=200, data=make_message_to_success(name_class, 'create', 'success'))
+      return jsonify(status=200, data=make_message_to_success(name_class, 'create'))
     except ValueError as error:
       return jsonify(status=500, message=make_message_to_error(name_class, 'create', error))
 
@@ -62,7 +62,7 @@ def update(id):
 
       model_class.update(**json)
 
-      return jsonify(status=200, data=make_message_to_success(name_class, 'update', 'success'))
+      return jsonify(status=200, data=make_message_to_success(name_class, 'update'))
     except ValueError as error:
       return jsonify(status=500, message=make_message_to_error(name_class, 'update', error))
 
@@ -74,6 +74,6 @@ def delete():
 
       model_class.delete(json['id'])
 
-      return jsonify(status=200, data=make_message_to_success(name_class, 'delete', 'success'))
+      return jsonify(status=200, data=make_message_to_success(name_class, 'delete'))
     except ValueError as error:
       return jsonify(status=500, message=make_message_to_error(name_class, 'delete', error))
