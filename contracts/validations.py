@@ -4,6 +4,7 @@
 
 from contracts.fields import contracts
 from helpers.messages import messages
+from helpers.constant import delimiter
 
 remove_information_objects = ['type']
 
@@ -51,7 +52,7 @@ def validate_id(func):
         with open(file, 'r+') as file:
             flag = False
             for x in file.readlines():
-                if x.split('|')[0] == str(current_id):
+                if x.split(delimiter)[0] == str(current_id):
                     flag = True
         if flag:
             return func(*args, **kwargs)

@@ -6,26 +6,24 @@
 from contracts.validations import return_validation, validate_contract, validate_id, validate_email
 from helpers.messages import messages
 from helpers.order import sort_like_contracts, sort_update_like_contracts, sort_register_to_object
+from helpers.constant import delimiter, jump
 
 class CRUD (object):
-
-    jump = '\n'
-    delimiter = '|'
 
     @staticmethod
     def converto_to_text(sort_array):
         #Convert array to format text
         text = ""
         for x in sort_array:
-            text += str(x) + CRUD.delimiter
-        text = text[0: len(text) - 1] + CRUD.jump
+            text += str(x) + delimiter
+        text = text[0: len(text) - 1] + jump
         return text
 
     @staticmethod
     def search_position_array_id(lines, id):
       #Search the position of id
         for i, x in enumerate(lines):
-            if x.split('|')[0] == str(id):
+            if x.split(delimiter)[0] == str(id):
                 return i
 
     def __init__(self, *args, **kwargs):
@@ -45,7 +43,7 @@ class CRUD (object):
       with open(self.file_path, 'a+') as file:
         file = open(self.file_path, 'r')
         for line in file:
-          if int(line.split('|')[0]) == int(id):
+          if int(line.split(delimiter)[0]) == int(id):
             file.close()
             if kwargs.get('dict'):
                 dct = {
@@ -69,8 +67,8 @@ class CRUD (object):
         #Prepair text to insert
         text = ""
         for x in sort_array:
-          text += str(x) + CRUD.delimiter
-        text = text[0: len(text) - 1] + CRUD.jump
+          text += str(x) + delimiter
+        text = text[0: len(text) - 1] + jump
         #Insert text in a file
         file.write(text)
 
@@ -92,7 +90,7 @@ class CRUD (object):
         register = self.converto_to_text(register)
         #Delete a line and insert the line
         lines = file.readlines()
-        current_line = self.search_position_array_id(lines, register.split('|')[0])
+        current_line = self.search_position_array_id(lines, register.split(delimiter)[0])
         lines[int(current_line)] = register
       #Change all the text
       with open(self.file_path, 'w+') as file:

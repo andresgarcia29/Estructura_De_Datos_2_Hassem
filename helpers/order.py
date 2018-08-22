@@ -1,4 +1,5 @@
 from contracts.fields import contracts
+from helpers.constant import delimiter
 
 def sort_like_contracts(**kwargs):
     order = contracts[kwargs['type']]
@@ -19,7 +20,7 @@ def sort_update_like_contracts(**kwargs):
     del kwargs['obj']['type']
 
     #Convert to a array and delete the break lines
-    register = kwargs['register'].split('|')
+    register = kwargs['register'].split(delimiter)
     register = [x.replace('\n', '') for x in register]
 
     #Make a dictionary with the registers
@@ -49,7 +50,7 @@ def sort_register_to_object(**kwargs):
     del kwargs['type']
 
     #Convert to a array and delete the break lines
-    register = kwargs['register'].split('|')
+    register = kwargs['register'].split(delimiter)
     register = [x.replace('\n', '') for x in register]
 
     #Make a dictionary with the registers

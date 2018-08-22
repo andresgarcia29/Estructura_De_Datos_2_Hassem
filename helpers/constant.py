@@ -1,0 +1,2 @@
+jump = '\n'
+delimiter = '|'
