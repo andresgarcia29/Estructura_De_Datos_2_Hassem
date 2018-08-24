@@ -59,7 +59,8 @@ class CRUD (object):
     def create(self, **obj):
       with open(self.file_path, 'a+') as file:
         #Get all the lines to the file to convert to ID
-        self.id = len(open(self.file_path).readlines())
+        self.id = [x for x in open(self.file_path).readlines()]
+        self.id = str(int(self.id[len(self.id) - 1].split(delimiter)[0]) + 1)
         #Assign ID
         obj['id'] = self.id
         #Order components like fields
@@ -70,6 +71,7 @@ class CRUD (object):
           text += str(x) + delimiter
         text = text[0: len(text) - 1] + jump
         #Insert text in a file
+
         file.write(text)
 
     @validate_id

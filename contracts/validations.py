@@ -33,7 +33,6 @@ def validate_contract(func):
     def check_contract(*args, **kwargs):
         #Call to validation function and return true or false and a message
         if return_validation(**kwargs):
-            raise ValueError(messages['success']['contract'])
             return func(*args, **kwargs)
         else:
             raise ValueError(messages['error']['contract'])
@@ -79,5 +78,5 @@ def validate_email(func):
         if match == None:
             raise ValueError('Email not good format')
         else:
-            return True
+            return func(*args, **kwargs)
     return check_contract

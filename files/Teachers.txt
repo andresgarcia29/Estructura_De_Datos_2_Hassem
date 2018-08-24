@@ -1,5 +1,3 @@
-2|Ricardo Arjona|perro@delmal.com|3393939
-4|Ricardo Arjona|perro@delmal.com|3393939
 5|Pedro|andres@gmail.com|3393939
 6|Pedro|andres@gmail.com|3393939
 7|Pedro|andres@gmail.com|3393939
@@ -12,4 +10,5 @@
 16|Pedro|andres@gmail.com|3393939
 17|Pedro|andres@gmail.com|3393939
 18|Pedro|andres@gmail.com|3393939
-19|Ricardo Arjona|perro@delmal.com|3393939
+20|Cecilia|loco@gmail.com|393999493
+21|Cecilia|loco@gmail.com|393999493
