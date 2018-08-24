@@ -1,4 +1,4 @@
-from crud import CRUD
+from crud.delimiters import CRUD
 
 class Teacher(CRUD):
 

@@ -1,5 +1,5 @@
 """
-  CRUD
+  CRUD Delimitadores
   This class we can inherit to get this methods
 """
 
@@ -69,6 +69,8 @@ class CRUD (object):
           text += str(x) + delimiter
         text = text[0: len(text) - 1] + jump
         #Insert text in a file
+
+        print(text)
 
         file.write(text)
 
