@@ -31,8 +31,7 @@ class CRUD (object):
         del kwargs['_file']
 
     def get_all(self):
-      with open(self.file_path, 'a+') as file:
-        file = open(self.file_path, 'r')
+      with open(self.file_path, 'r') as file:
         lines = []
         for line in file:
           lines.append(line)
@@ -40,8 +39,7 @@ class CRUD (object):
 
     @validate_id
     def get_one(self, id, **kwargs):
-      with open(self.file_path, 'a+') as file:
-        file = open(self.file_path, 'r')
+      with open(self.file_path, 'r') as file:
         for line in file:
           if int(line.split(delimiter)[0]) == int(id):
             file.close()
