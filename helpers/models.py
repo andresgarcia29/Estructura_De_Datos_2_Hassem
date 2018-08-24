@@ -1,4 +1,4 @@
 models = {
     'teacher': 'files/Teachers.txt',
-    'user': 'files/user.txt'
+    'rol': 'files/Rol.txt',
 }
