@@ -7,25 +7,69 @@ from contracts.validations import return_validation, validate_contract, validate
 from helpers.messages import messages
 from helpers.order import sort_like_contracts, sort_update_like_contracts, sort_register_to_object
 from helpers.constant import delimiter, jump
+from contracts.fields import contracts
 
 
 class CRUD (object):
 
     @staticmethod
-    def converto_to_text(sort_array):
-        #Convert array to format text
-        text = ""
-        for x in sort_array:
-            text += str(x) + delimiter
-        text = text[0: len(text) - 1] + jump
-        return text
+    def create_object(contract_type, dictionary):
+      #Get a dictionary and convert it in a dimention fields format
+      string = ""
+      for item in dictionary:
+        lenght_string = len(str(item))
+        len_id = len(str(lenght_string))
+        string += str(len_id) + str(lenght_string) + str(item)
+      return string + jump
+
+    @staticmethod
+    def update_object(contract_type, dictionary):
+      #Get a dictionary and convert it in a dimention fields format
+      string = ""
+      for item in contracts[contract_type]:
+        lenght_string = len(str(dictionary[item]))
+        len_id = len(str(lenght_string))
+        string += str(len_id) + str(lenght_string) + str(dictionary[item])
+      return string + jump
+
+    @staticmethod
+    def read_object(string):
+      #Convert a dimension fields to a object
+      string = string.replace('\n', '')
+      object, size, position = [], 0, 0
+      while position != len(string):
+        current_value = int(string[size])
+        position += 1
+        all_size = string[position: current_value + position]
+        position += current_value
+        value = string[position:position + int(all_size)]
+        position += int(all_size)
+        size = position
+        object.append(value)
+      string = "".join([x + '|' for x in object])[0:-1]
+      dct = {
+          'type': 'user',
+          'register': string
+      }
+      return(sort_register_to_object(**dct))
+    
+    @staticmethod
+    def get_id_of_object(line):
+      #Get the line and get only the id
+      size, position = 0, 0
+      current_value = int(line[size])
+      position += 1
+      all_size = line[position: current_value + position]
+      position += current_value
+      return line[position:position + int(all_size)]
 
     @staticmethod
     def search_position_array_id(lines, id):
       #Search the position of id
-        for i, x in enumerate(lines):
-            if x.split(delimiter)[0] == str(id):
-                return i
+      for i, x in enumerate(lines):
+        current_id = CRUD.get_id_of_object(x)
+        if int(current_id) == int(id):
+          return i
 
     def __init__(self, *args, **kwargs):
         self.file_path = kwargs['_file']
@@ -34,74 +78,71 @@ class CRUD (object):
     def get_all(self):
       with open(self.file_path, 'r') as file:
         lines = []
-        for line in file:
-          lines.append(line)
+        for line in file.readlines():
+          lines.append(CRUD.read_object(line))
         return lines
 
-    @validate_id
+    @validate_id(rules='dimensionfields')
     def get_one(self, id, **kwargs):
       with open(self.file_path, 'r') as file:
         for line in file:
-          if int(line.split(delimiter)[0]) == int(id):
-            file.close()
-            if kwargs.get('dict'):
-                dct = {
-                    'type': self.type,
-                    'register': line
-                }
-                return sort_register_to_object(**dct)
-            else:
-                return line
+          result = CRUD.get_id_of_object(line)
+          if int(result) == int(id):
+            dct = {
+                'type': self.type,
+                'register': CRUD.read_object(line)
+            }
+            return sort_register_to_object(**dct)
 
     @validate_contract
-    @validate_email
+    #@validate_email
     def create(self, **obj):
       with open(self.file_path, 'a+') as file:
         #Get all the lines to the file to convert to ID
-        self.id = [x for x in open(self.file_path).readlines()]
-        self.id = str(int(self.id[len(self.id) - 1].split(delimiter)[0]) + 1)
-        #Assign ID
-        obj['id'] = self.id
+        try:
+          obj['id'] = int(self.get_all()[len(self.get_all()) - 1]['id']) + 1
+        except:
+          obj['id'] = 1
+
         #Order components like fields
         sort_array = sort_like_contracts(**obj)
-        #Prepair text to insert
-        text = ""
-        for x in sort_array:
-          text += str(x) + delimiter
-        text = text[0: len(text) - 1] + jump
-        #Insert text in a file
+        #Delete the rebudand id
+        sort_array.pop(0)
 
-        print(text)
+        file.write(CRUD.create_object(self.type, sort_array))
 
-        file.write(text)
-
-    @validate_id
+    @validate_id(rules='dimensionfields')
     @validate_contract
     @validate_email
     def update(self, **obj):
       with open(self.file_path, 'r+') as file:
         #Find element to update
         register = self.get_one(obj['id'])
-        #Delete the primary object
+        #Save the id
+        save_id = obj['id']
+
+        del obj['type']
         del obj['id']
-        #Sort and update the exactly fields
-        kwargs = {}
-        kwargs['obj'] = obj
-        kwargs['register'] = register
-        register = sort_update_like_contracts(**kwargs)
-        #Prepair string to change in array
-        register = self.converto_to_text(register)
-        #Delete a line and insert the line
+
+        #Update the new values in a current register
+        for x in obj.keys():
+          register[x] = obj[x]
+
+        #Creat dimension fields object
+        register = CRUD.update_object(self.type, register)
+
+        #Get the current position of this object
         lines = file.readlines()
         current_line = self.search_position_array_id(
-            lines, register.split(delimiter)[0])
+            lines, save_id)
+
         lines[int(current_line)] = register
       #Change all the text
       with open(self.file_path, 'w+') as file:
           for x in lines:
             file.write(x)
 
-    @validate_id
+    @validate_id(rules='dimensionfields')
     def delete(self, id):
       with open(self.file_path, 'r+') as file:
         #Read all lines

@@ -99,7 +99,7 @@ class CRUD (object):
           for x in lines:
             file.write(x)
 
-    @validate_id
+    @validate_id(rules='delimiters')
     def delete(self, id):
       with open(self.file_path, 'r+') as file:
         #Read all lines
