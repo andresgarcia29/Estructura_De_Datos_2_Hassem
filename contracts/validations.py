@@ -137,10 +137,16 @@ def validate_email(func):
 
         import re
 
-        addressToVerify = kwargs['email']
-        regex = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
+        address_to_verify = kwargs['email']
+        regex = r"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$"
         match = re.match(regex,
-                            addressToVerify)
+                            address_to_verify)
+
+        if len([i for i, a in enumerate(address_to_verify) if a == '.']) == 2:
+            if len(address_to_verify.split('.')[-2]) > 1 and len(address_to_verify.split('.')[-2]) < 4:
+                pass
+            else:
+                match = None
 
         if match == None:
             raise ValueError('Email not good format')

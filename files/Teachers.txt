@@ -18,3 +18,15 @@
 28|Fortino mendez|fortino@digitt.com|330303030
 30|Fortino mendez|fortino@digitt.com|330303030
 32|Fortino mendez|fortino@digitt.com|330303030
+33|Manuel mendez|manuel@digitt.com|330303030
+34|Manuel mendez|manuel@digitt.com|330303030
+35|Manuel mendez|manuel@digitt.com.mx|330303030
+36|Manuel mendez|manuel@digitt.com.mxxx|330303030
+37|Manuel mendez|manuel@digitt.c.mxx|330303030
+38|Manuel mendez|manuel@digitt.coo.mxx|330303030
+39|Manuel mendez|manuel@digitt.coo.mxx|330303030
+40|Manuel mendez|manuel@digitt.coo.mxx|330303030
+41|Manuel mendez|manuel@digitt.cooo.mxx|330303030
+42|Manuel mendez|manuel@digitt.coooo.mxx|330303030
+43|Manuel mendez|manuel@digitt.co.mxx|330303030
+44|Manuel mendez|manuel@digitt.coo.mxx|330303030
