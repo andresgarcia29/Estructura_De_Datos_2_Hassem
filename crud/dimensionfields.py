@@ -3,7 +3,7 @@
   This class we can inherit to get this methods
 """
 
-from contracts.validations import return_validation, validate_contract, validate_id, validate_email
+from contracts.validations import return_validation, validate_permission, validate_contract, validate_id, validate_email
 from helpers.messages import messages
 from helpers.order import sort_like_contracts, sort_update_like_contracts, sort_register_to_object
 from helpers.constant import delimiter, jump
@@ -75,6 +75,7 @@ class CRUD (object):
         self.file_path = kwargs['_file']
         del kwargs['_file']
 
+    #@validate_permission(rules=[1,2,3])
     def get_all(self):
       with open(self.file_path, 'r') as file:
         lines = []
@@ -98,7 +99,6 @@ class CRUD (object):
             return sort_register_to_object(**dct)
 
     @validate_contract
-    #@validate_email
     def create(self, **obj):
       with open(self.file_path, 'a+') as file:
         #Get all the lines to the file to convert to ID
@@ -155,6 +155,10 @@ class CRUD (object):
           'status': False
       }
       self.update(**dictionary)
+
+
+
+
       # with open(self.file_path, 'r+') as file:
       #   #Read all lines
       #   lines = file.readlines()

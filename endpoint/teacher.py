@@ -3,6 +3,8 @@ from endpoint.index import APP
 from helpers.order import sort_register_to_object
 from helpers.messages import make_message_to_success, make_message_to_error
 
+from helpers.headers import get_secret_role
+
 from helpers.models import models
 
 from classes.teacher import Teacher
@@ -12,6 +14,7 @@ url_link = '/' + name_class + '/'
 
 
 @APP.route(url_link + 'get', methods=['GET'], endpoint=name_class + 'get_all')
+@get_secret_role([1,2,3])
 def get_all():
     try:
       datas = model_class.get_all()
@@ -32,6 +35,7 @@ def get_all():
 
 
 @APP.route(url_link + 'get/<string:id>', methods=['GET'], endpoint=name_class + 'get_one')
+@get_secret_role([1,2,3])
 def get_one(id):
     try:
       data = {}
@@ -42,6 +46,7 @@ def get_one(id):
 
 
 @APP.route(url_link + 'create', methods=['POST'], endpoint=name_class + 'create')
+@get_secret_role([1,2,3])
 def create():
     try:
       json = request.get_json()
@@ -55,6 +60,7 @@ def create():
 
 
 @APP.route(url_link + 'update/<string:id>', methods=['POST'], endpoint=name_class + 'update')
+@get_secret_role([1,2,3])
 def update(id):
     try:
       json = request.get_json()
@@ -69,6 +75,7 @@ def update(id):
 
 
 @APP.route(url_link + 'delete', methods=['POST'], endpoint=name_class + 'delete')
+@get_secret_role([1,2,3])
 def delete():
     try:
       json = request.get_json()
