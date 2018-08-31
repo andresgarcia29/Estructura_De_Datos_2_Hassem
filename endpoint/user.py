@@ -86,3 +86,15 @@ def delete():
       return jsonify(status=200, data=make_message_to_success(name_class, 'delete'))
     except ValueError as error:
       return jsonify(status=500, message=make_message_to_error(name_class, 'delete', error))
+
+
+@APP.route(url_link + 'login', methods=['POST'], endpoint=name_class + 'login')
+def login():
+    try:
+      json = request.get_json()
+
+      role = model_class.login(**json)
+
+      return jsonify(status=200, data=str(role))
+    except ValueError as error:
+      return jsonify(status=500, message=make_message_to_error(name_class, 'delete', error))

@@ -10,6 +10,15 @@ class User(CRUD):
       super(User, self).__init__(*args, **kwargs)
       self.type = 'user'
 
+    def login(self, **obj):
+      with open(self.file_path, 'a+') as file:
+        register = self.get_all()
+        for user in register:
+          if obj['name'] == user['name']:
+            if obj['password'] == user['password']:
+              return user['rol']
+        raise ValueError('User and password not correctly')
+
     @validate_contract
     @validate_rol(rules='dimensionfields')
     def create(self, **obj):
