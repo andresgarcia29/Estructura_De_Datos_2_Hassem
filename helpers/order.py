@@ -41,6 +41,10 @@ def sort_update_like_contracts(**kwargs):
     return items
 
 def sort_register_to_object(**kwargs):
+
+    if isinstance(kwargs['register'], dict):
+        return kwargs['register']
+
     #Get the order of object
     order = contracts[kwargs['type']]
     if order[0] != 'id':

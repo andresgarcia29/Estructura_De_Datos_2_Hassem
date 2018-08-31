@@ -1,6 +1,6 @@
 5|Pedro|andres@gmail.com|3393939
 6|Pedro|andres@gmail.com|3393939
-7|Pedro|andres@gmail.com|3393939
+7|Pedro|adiosvaquero123@gmail.com|3393939
 8|Pedro|andres@gmail.com|3393939
 11|Pedro|andres@gmail.com|3393939
 12|Ricardo Arjona|perro@delmal.com|3393939
@@ -15,5 +15,4 @@
 22|Cecidlia|loco@gmail.com|393999493
 23|Cecidlia|loco@gmail.com|393999493
 24|Cecidlia|loco@gmail.com|393999493
-25|Cecidlia|loco@gmail.com|393999493
-26|Cecisdfsdfdlia|loco@gmail.com|39333999493
+27|Cecilia|loco@gmail.com|393999493
