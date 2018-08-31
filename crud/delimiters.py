@@ -64,7 +64,7 @@ class CRUD (object):
         obj['id'] = self.id
         #Order components like fields
         sort_array = sort_like_contracts(**obj)
-        if len(sort_array) > len(contracts) + 1:
+        if len(sort_array) > len(contracts):
           sort_array.pop(0)
         #Prepair text to insert
         text = ""

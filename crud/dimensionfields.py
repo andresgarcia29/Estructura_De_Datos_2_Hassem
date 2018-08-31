@@ -33,7 +33,7 @@ class CRUD (object):
       return string + jump
 
     @staticmethod
-    def read_object(string):
+    def read_object(type_contract, string):
       #Convert a dimension fields to a object
       string = string.replace('\n', '')
       object, size, position = [], 0, 0
@@ -48,7 +48,7 @@ class CRUD (object):
         object.append(value)
       string = "".join([x + '|' for x in object])[0:-1]
       dct = {
-          'type': 'user',
+          'type': type_contract,
           'register': string
       }
       return(sort_register_to_object(**dct))
@@ -79,7 +79,9 @@ class CRUD (object):
       with open(self.file_path, 'r') as file:
         lines = []
         for line in file.readlines():
-          lines.append(CRUD.read_object(line))
+          obj = CRUD.read_object(self.type, line)
+          if obj['status'] == 'True':
+            lines.append(obj)
         return lines
 
     @validate_id(rules='dimensionfields')
@@ -87,10 +89,11 @@ class CRUD (object):
       with open(self.file_path, 'r') as file:
         for line in file:
           result = CRUD.get_id_of_object(line)
-          if int(result) == int(id):
+          register = CRUD.read_object(self.type, line)
+          if int(result) == int(id) and register['status'] == 'True':
             dct = {
                 'type': self.type,
-                'register': CRUD.read_object(line)
+                'register': register
             }
             return sort_register_to_object(**dct)
 
@@ -104,16 +107,18 @@ class CRUD (object):
         except:
           obj['id'] = 1
 
+        obj['status'] = True
+
         #Order components like fields
         sort_array = sort_like_contracts(**obj)
         #Delete the rebudand id
-        sort_array.pop(0)
+        if len(sort_array) > len(contracts[self.type]):
+          sort_array.pop(0)
 
         file.write(CRUD.create_object(self.type, sort_array))
 
     @validate_id(rules='dimensionfields')
     @validate_contract
-    @validate_email
     def update(self, **obj):
       with open(self.file_path, 'r+') as file:
         #Find element to update
@@ -144,13 +149,19 @@ class CRUD (object):
 
     @validate_id(rules='dimensionfields')
     def delete(self, id):
-      with open(self.file_path, 'r+') as file:
-        #Read all lines
-        lines = file.readlines()
-        #Get position of id and delete
-        position = self.search_position_array_id(lines, id)
-        del lines[position]
-      #Change all the text
-      with open(self.file_path, 'w+') as file:
-          for x in lines:
-              file.write(x)
+      dictionary = {
+          'type': self.type,
+          'id': id,
+          'status': False
+      }
+      self.update(**dictionary)
+      # with open(self.file_path, 'r+') as file:
+      #   #Read all lines
+      #   lines = file.readlines()
+      #   #Get position of id and delete
+      #   position = self.search_position_array_id(lines, id)
+      #   del lines[position]
+      # #Change all the text
+      # with open(self.file_path, 'w+') as file:
+      #     for x in lines:
+      #         file.write(x)
