@@ -7,6 +7,7 @@ from contracts.validations import return_validation, validate_contract, validate
 from helpers.messages import messages
 from helpers.order import sort_like_contracts, sort_update_like_contracts, sort_register_to_object
 from helpers.constant import delimiter, jump
+from contracts.fields import contracts
 
 class CRUD (object):
 
@@ -37,7 +38,7 @@ class CRUD (object):
           lines.append(line)
         return lines
 
-    @validate_id
+    @validate_id(rules='delimiters')
     def get_one(self, id, **kwargs):
       with open(self.file_path, 'r') as file:
         for line in file:
@@ -63,6 +64,8 @@ class CRUD (object):
         obj['id'] = self.id
         #Order components like fields
         sort_array = sort_like_contracts(**obj)
+        if len(sort_array) > len(contracts) + 1:
+          sort_array.pop(0)
         #Prepair text to insert
         text = ""
         for x in sort_array:
@@ -74,7 +77,7 @@ class CRUD (object):
 
         file.write(text)
 
-    @validate_id
+    @validate_id(rules='delimiters')
     @validate_contract
     @validate_email
     def update(self, **obj):
