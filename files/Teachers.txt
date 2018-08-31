@@ -1,11 +1,10 @@
-5|Pedro|andres@gmail.com|3393939
+5|Pedro|adiosvaquero123@gmail.com|3393939
 6|Pedro|andres@gmail.com|3393939
 7|Pedro|adiosvaquero123@gmail.com|3393939
 8|Pedro|andres@gmail.com|3393939
 11|Pedro|andres@gmail.com|3393939
 12|Ricardo Arjona|perro@delmal.com|3393939
 13|Pedro|andres@gmail.com|3393939
-14|Pedro|andres@gmail.com|3393939
 15|Pedro|andres@gmail.com|3393939
 16|Pedro|andres@gmail.com|3393939
 17|Pedro|andres@gmail.com|3393939
@@ -17,7 +16,5 @@
 24|Cecidlia|loco@gmail.com|393999493
 27|Cecilia|loco@gmail.com|393999493
 28|Fortino mendez|fortino@digitt.com|330303030
-29|Fortino mendez|fortino@digitt.com|330303030
 30|Fortino mendez|fortino@digitt.com|330303030
-31|Fortino mendez|fortino@digitt.com|330303030
 32|Fortino mendez|fortino@digitt.com|330303030

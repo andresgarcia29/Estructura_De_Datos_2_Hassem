@@ -4,6 +4,6 @@
 
 contracts = {
     "teacher": ['name', 'email', 'cellphone'],
-    "user": ['email', 'name'],
+    "user": ['email', 'name', 'status'],
     "rol": ['name', 'status'],
 }
