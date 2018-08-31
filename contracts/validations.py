@@ -8,6 +8,16 @@ from helpers.constant import delimiter
 
 remove_information_objects = ['type']
 
+
+def get_id_of_object(line):
+      #Get the line and get only the id
+      size, position = 0, 0
+      current_value = int(line[size])
+      position += 1
+      all_size = line[position: current_value + position]
+      position += current_value
+      return line[position:position + int(all_size)]
+
 def return_validation(**kwargs):
     #Get the contract type
     type_contract = kwargs['type']
@@ -39,26 +49,32 @@ def validate_contract(func):
     return check_contract
 
 
-def validate_id(func):
-    #Wrapper to check the contract is perfectly
-    def check_contract(*args, **kwargs):
-        #Call to validation function and return true or false and a message
-        file = args[0].file_path
-        try:
-            current_id = args[1]
-        except:
-            current_id = kwargs['id']
-        with open(file, 'r+') as file:
-            flag = False
-            for x in file.readlines():
-                if x.split(delimiter)[0] == str(current_id):
-                    flag = True
-        if flag:
-            return func(*args, **kwargs)
-        else:
-            #No se encontro el ID
-            raise ValueError("Can't find the id")
-    return check_contract
+def validate_id(rules):
+    def validate_id_function(func):
+        #Wrapper to check the contract is perfectly
+        def check_contract(*args, **kwargs):
+            #Call to validation function and return true or false and a message
+            file = args[0].file_path
+            try:
+                current_id = args[1]
+            except:
+                current_id = kwargs['id']
+            with open(file, 'r+') as file:
+                flag = False
+                for x in file.readlines():
+                    if rules == 'delimiters':
+                        if x.split(delimiter)[0] == str(current_id):
+                            flag = True
+                    elif rules == 'dimensionfields':
+                        if str(get_id_of_object(x)) == str(current_id):
+                            flag = True
+            if flag:
+                return func(*args, **kwargs)
+            else:
+                #No se encontro el ID
+                raise ValueError("Can't find the id")
+        return check_contract
+    return validate_id_function
 
 
 def validate_email(func):
