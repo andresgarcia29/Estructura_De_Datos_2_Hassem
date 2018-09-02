@@ -112,7 +112,7 @@ class CRUD (object):
         #Order components like fields
         sort_array = sort_like_contracts(**obj)
         #Delete the rebudand id
-        if len(sort_array) > len(contracts[self.type]):
+        if len(sort_array) > len(contracts[self.type]) and 'id' in contracts[self.type]:
           sort_array.pop(0)
 
         file.write(CRUD.create_object(self.type, sort_array))
