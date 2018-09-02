@@ -155,17 +155,3 @@ class CRUD (object):
           'status': False
       }
       self.update(**dictionary)
-
-
-
-
-      # with open(self.file_path, 'r+') as file:
-      #   #Read all lines
-      #   lines = file.readlines()
-      #   #Get position of id and delete
-      #   position = self.search_position_array_id(lines, id)
-      #   del lines[position]
-      # #Change all the text
-      # with open(self.file_path, 'w+') as file:
-      #     for x in lines:
-      #         file.write(x)
