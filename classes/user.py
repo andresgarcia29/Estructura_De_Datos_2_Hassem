@@ -12,7 +12,7 @@ class User(CRUD):
 
     def login(self, **obj):
       with open(self.file_path, 'a+') as file:
-        register = self.get_all()
+        register = self.get_all(False)
         for user in register:
           if obj['name'] == user['name']:
             if obj['password'] == user['password']:
@@ -24,10 +24,10 @@ class User(CRUD):
     def create(self, **obj):
       with open(self.file_path, 'a+') as file:
         #Get all the lines to the file to convert to ID
-        try:
-          obj['id'] = int(self.get_all()[len(self.get_all()) - 1]['id']) + 1
-        except:
+        if len(self.get_all(True)) == 0:
           obj['id'] = 1
+        else:
+          obj['id'] = int(self.get_all(True)[len(self.get_all(True)) - 1]['id']) + 1
 
         obj['status'] = True
 
