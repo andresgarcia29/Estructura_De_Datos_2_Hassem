@@ -7,5 +7,6 @@ contracts = {
     "user": ['name', 'password', 'rol', 'status'],
     "rol": ['name', 'status'],
     "period": ['name', 'start', 'finish', 'status'],
-    "group": ['name', 'status']
+    "group": ['name', 'status'],
+    "offer": ['teacher', 'list', 'group', 'period', 'status']
 }

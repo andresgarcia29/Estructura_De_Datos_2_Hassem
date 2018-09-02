@@ -3,5 +3,6 @@ models = {
     'rol': 'files/Rol.txt',
     'user': 'files/User.txt',
     'period': 'files/Period.txt',
-    'group': 'files/Group.txt'
+    'group': 'files/Group.txt',
+    'offer': 'files/Offer.txt'
 }

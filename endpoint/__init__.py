@@ -9,3 +9,4 @@ from endpoint.teacher import *
 from endpoint.rol import *
 from endpoint.period import *
 from endpoint.group import *
+from endpoint.offer import *
