@@ -4,7 +4,7 @@
 
 from contracts.fields import contracts
 from helpers.messages import messages
-from helpers.constant import delimiter
+from helpers.constant import delimiter, size_fix
 from helpers.order import sort_register_to_object
 from helpers.models import models
 
@@ -93,6 +93,9 @@ def validate_id(rules):
                             flag = True
                     elif rules == 'dimensionfields':
                         if str(get_id_of_object(x)) == str(current_id):
+                            flag = True
+                    elif rules == 'fixposition':
+                        if x[0:size_fix].replace(delimiter, '') == str(current_id):
                             flag = True
             if flag:
                 return func(*args, **kwargs)
