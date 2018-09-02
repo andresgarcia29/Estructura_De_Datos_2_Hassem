@@ -12,7 +12,12 @@ class Rol(CRUD):
     @validate_id(rules='dimensionfields')
     def delete(self, id):
       with open(models['user'], 'r+') as file:
-        print(file.read())
+        flag = False
         for line in file.readlines():
-          print(line)
-          print(CRUD.read_object(line))
+          obj = CRUD.read_object('user', line)
+          if str(obj['rol']) == str(id):
+            flag = True
+      if flag == True:
+        raise ValueError('This role has associate at least one user')
+      else:
+        CRUD.delete(self, id)
