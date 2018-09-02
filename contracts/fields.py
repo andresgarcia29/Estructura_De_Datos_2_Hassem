@@ -6,5 +6,5 @@ contracts = {
     "teacher": ['name', 'email', 'cellphone'],
     "user": ['name', 'password', 'rol', 'status'],
     "rol": ['name', 'status'],
-    "period": ['nombre', 'inicio', 'fin', 'status']
+    "period": ['name', 'start', 'finish', 'status']
 }
