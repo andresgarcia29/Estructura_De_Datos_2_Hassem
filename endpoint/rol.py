@@ -17,7 +17,7 @@ url_link = '/' + name_class + '/'
 @get_secret_role([1,2,3])
 def get_all():
     try:
-      datas = model_class.get_all()
+      datas = model_class.get_all(False)
 
       data = {}
       data['data'] = []

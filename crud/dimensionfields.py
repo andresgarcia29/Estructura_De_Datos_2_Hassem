@@ -1,5 +1,5 @@
 """
-  CRUD Delimitadores
+  CRUD dimensionfields
   This class we can inherit to get this methods
 """
 
@@ -75,13 +75,12 @@ class CRUD (object):
         self.file_path = kwargs['_file']
         del kwargs['_file']
 
-    #@validate_permission(rules=[1,2,3])
-    def get_all(self):
+    def get_all(self, option):
       with open(self.file_path, 'r') as file:
         lines = []
         for line in file.readlines():
           obj = CRUD.read_object(self.type, line)
-          if obj['status'] == 'True':
+          if obj['status'] == 'True' or option:
             lines.append(obj)
         return lines
 
@@ -97,15 +96,16 @@ class CRUD (object):
                 'register': register
             }
             return sort_register_to_object(**dct)
+      raise ValueError("Record not found")
 
     @validate_contract
     def create(self, **obj):
       with open(self.file_path, 'a+') as file:
         #Get all the lines to the file to convert to ID
-        try:
-          obj['id'] = int(self.get_all()[len(self.get_all()) - 1]['id']) + 1
-        except:
+        if len(self.get_all(True)) == 0:
           obj['id'] = 1
+        else:
+          obj['id'] = int(self.get_all(True)[len(self.get_all(True)) - 1]['id']) + 1
 
         obj['status'] = True
 

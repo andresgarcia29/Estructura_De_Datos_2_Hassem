@@ -18,7 +18,7 @@ url_link = '/' + name_class + '/'
 def get_all():
     try:
 
-      datas = model_class.get_all()
+      datas = model_class.get_all(False)
 
       data = {}
       data['data'] = []
