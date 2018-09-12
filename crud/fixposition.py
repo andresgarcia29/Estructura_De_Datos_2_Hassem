@@ -82,11 +82,13 @@ class CRUD (object):
 
     @validate_id(rules='fixposition')
     def get_one(self, id, **kwargs):
+      if kwargs.get('delet_fisic') == None:
+        kwargs['delet_fisic'] = False
       with open(self.file_path, 'r') as file:
         for line in file:
           result = CRUD.get_id_of_object(line)
           register = CRUD.read_object(self.type, line)
-          if int(result) == int(id) and register['status'] == 'True':
+          if int(result) == int(id) and register['status'] == 'True' or kwargs['delet_fisic'] and int(result) == int(id):
             dct = {
                 'type': self.type,
                 'register': register
@@ -116,7 +118,13 @@ class CRUD (object):
     def update(self, **obj):
       with open(self.file_path, 'r+') as file:
         #Find element to update
-        register = self.get_one(obj['id'])
+        kwargs = {}
+        if obj.get('status') == None:
+          kwargs['delet_fisic'] = False
+        else:
+          kwargs['delet_fisic'] = True
+        register = self.get_one(obj['id'], **kwargs)
+        print(register)
         #Save the id
         save_id = obj['id']
 
@@ -149,3 +157,19 @@ class CRUD (object):
           'status': False
       }
       self.update(**dictionary)
+
+    @validate_id(rules='fixposition')
+    def delete_fisic(self, id):
+      with open(self.file_path, 'r+') as file:
+        #Read all lines
+        lines = file.readlines()
+        #Get position of id and delete
+        current = self.get_one(id)
+        if current['status'] == 'False':
+          raise('The register is desactivated')
+        position = self.search_position_array_id(lines, id)
+        del lines[position]
+      #Change all the text
+      with open(self.file_path, 'w+') as file:
+          for x in lines:
+              file.write(x)

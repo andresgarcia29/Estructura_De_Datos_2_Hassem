@@ -62,7 +62,7 @@ def create():
 
 @APP.route(url_link + 'update/<string:id>', methods=['POST'], endpoint=name_class + 'update')
 @get_secret_role([1,2,3])
-def update():
+def update(id):
     try:
       json = request.get_json()
       json['type'] = model_class.type

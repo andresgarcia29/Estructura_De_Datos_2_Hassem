@@ -15,7 +15,8 @@ class Rol(CRUD):
         flag = False
         for line in file.readlines():
           obj = CRUD.read_object('user', line)
-          if str(obj['rol']) == str(id):
+          if str(obj['rol']) == str(id) and str(obj['status']) == 'True':
+            print(obj)
             flag = True
       if flag == True:
         raise ValueError('This role has associate at least one user')
