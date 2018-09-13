@@ -10,3 +10,4 @@ from endpoint.rol import *
 from endpoint.period import *
 from endpoint.group import *
 from endpoint.offer import *
+from endpoint.subject import *

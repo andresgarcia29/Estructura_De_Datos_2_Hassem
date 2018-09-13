@@ -85,3 +85,16 @@ def delete():
       return jsonify(status=200, data=make_message_to_success(name_class, 'delete'))
     except ValueError as error:
       return jsonify(status=500, message=make_message_to_error(name_class, 'delete', error))
+
+
+@APP.route(url_link + 'delete/fisic', methods=['POST'], endpoint=name_class + 'delete_fisic')
+@get_secret_role([1, 2, 3])
+def delete_fisic():
+    try:
+      json = request.get_json()
+
+      model_class.delete_fisic(json['id'])
+
+      return jsonify(status=200, data=make_message_to_success(name_class, 'delete'))
+    except ValueError as error:
+      return jsonify(status=500, message=make_message_to_error(name_class, 'delete', error))
