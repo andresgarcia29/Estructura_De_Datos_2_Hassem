@@ -71,12 +71,16 @@ class CRUD (object):
         self.file_path = kwargs['_file']
         del kwargs['_file']
 
+    def get_last_id(self):
+      return self.get_all(True)[-1]['id']
+
     def get_all(self, option):
       with open(self.file_path, 'r') as file:
         lines = []
         for line in file.readlines():
           obj = CRUD.read_object(self.type, line)
-          if obj['status'] == 'True' or option:
+          if obj['status'] == 'True' or obj['status'] == 'Tru' or option:
+            obj['status'] == 'True'
             lines.append(obj)
         return lines
 
@@ -88,7 +92,9 @@ class CRUD (object):
         for line in file:
           result = CRUD.get_id_of_object(line)
           register = CRUD.read_object(self.type, line)
-          if int(result) == int(id) and register['status'] == 'True' or kwargs['delet_fisic'] and int(result) == int(id):
+          if int(result) == int(id) and register['status'] == 'True' or register['status'] == 'Tru' or kwargs['delet_fisic'] and int(result) == int(id):
+            if register['status'] == 'Tru':
+              register['status'] = 'True'
             dct = {
                 'type': self.type,
                 'register': register

@@ -8,5 +8,7 @@ contracts = {
     "rol": ['name', 'status'],
     "period": ['name', 'start', 'finish', 'status'],
     "group": ['name', 'status'],
-    "offer": ['teacher', 'list', 'group', 'period', 'status']
+    "offer": ['teacher', 'list', 'group', 'period', 'status'],
+    "subject": ['name', 'credits', 'status'],
+    "subject_index": ['direction', 'status']
 }
